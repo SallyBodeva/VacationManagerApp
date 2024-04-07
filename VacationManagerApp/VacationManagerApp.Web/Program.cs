@@ -19,7 +19,7 @@ namespace VacationManagerApp.Web
             {
                 options.UseSqlServer(connectionString);
                 options.UseLazyLoadingProxies();
-
+                
             });
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -37,7 +37,9 @@ namespace VacationManagerApp.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddTransient<IUserService, UsersService>();
+            builder.Services.AddTransient<IUserService, UsersService>(); 
+            builder.Services.AddTransient<ITeamService, TeamsService>();
+
 
             var app = builder.Build();
 

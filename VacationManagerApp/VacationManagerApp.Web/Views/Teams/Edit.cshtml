@@ -1,0 +1,67 @@
+﻿@model EditTeamViewModel
+
+@{
+	ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Team</h4>
+<hr />
+<div class="row">
+	<div class="col-md-8">
+		<form asp-action="Edit" enctype="multipart/form-data">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<input type="hidden" asp-for="Id" />
+			<div class="form-group">
+				<label asp-for="Name" class="control-label"></label>
+				<input asp-for="Name" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<br>
+			<h2>Developers</h2>
+			<br>@if (Model.Developers.Count == 0)
+			{
+				<p>This team does not developers yet</p>
+			}
+			else
+			{
+				<div class="form-group">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>First Name</th>
+								<th>Last Name</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model.Developers)
+							{
+								<tr>
+									<td>@item.FirstName</td>
+									<td>@item.LastName</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			}
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary">Save</button>
+				<a asp-action="Index" class="btn btn-secondary ml-2">Back to List</a>
+				<a asp-action="AddUserToTeam" asp-controller="Teams" asp-route-id="@Model.Id" class="btn btn-secondary ml-2">Add new user</a>
+				@if (Model.Developers.Count != 0)
+				{
+					<a asp-action="RemoveUserOfTeam" asp-controller="Teams" asp-route-id="@Model.Id" class="btn btn-secondary ml-2">Remove user</a>
+				}
+
+			</div>
+		</form>
+	</div>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
