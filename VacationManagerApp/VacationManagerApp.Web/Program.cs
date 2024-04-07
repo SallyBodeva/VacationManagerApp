@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using VacationManagerApp.Data.Models;
 using VacationManagerApp.Data;
+using VacationManagerApp.Services.Contracts;
+using VacationManagerApp.Services;
 
 namespace VacationManagerApp.Web
 {
@@ -35,6 +37,7 @@ namespace VacationManagerApp.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddTransient<IUserService, UsersService>();
 
             var app = builder.Build();
 

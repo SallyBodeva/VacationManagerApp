@@ -12,7 +12,7 @@ using VacationManagerApp.Data;
 namespace VacationManagerApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240407173235_Initial")]
+    [Migration("20240407184400_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -284,7 +284,6 @@ namespace VacationManagerApp.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Role")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")

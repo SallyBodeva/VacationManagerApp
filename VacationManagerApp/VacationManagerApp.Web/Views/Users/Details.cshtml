@@ -1,0 +1,74 @@
+﻿@model DetailsUserViewModel
+
+<style>
+    .user-details-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        .user-details-table th,
+        .user-details-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .user-details-table th {
+            background-color: #f2f2f2;
+        }
+
+    .button-container {
+        margin-top: 20px;
+    }
+
+    .edit-button,
+    .back-button {
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-right: 10px;
+    }
+
+        .edit-button:hover,
+        .back-button:hover {
+            background-color: #FFC0CB;
+        }
+</style>
+
+<h2>User Details</h2>
+
+<table class="user-details-table">
+    <tr>
+        <th></th>
+        <th>Data</th>
+    </tr>
+    <tr>
+        <td>Id:</td>
+        <td>@Model.Id</td>
+    </tr>
+    <tr>
+        <td>Name:</td>
+        <td>@Model.Name</td>
+    </tr>
+    <tr>
+        <td>Team:</td>
+        <td>@Model.Team</td>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        <td>@Model.Email</td>
+    </tr>
+    <tr>
+        <td>Role:</td>
+        <td>@Model.Role</td>
+    </tr>
+</table>
+
+<div class="button-container">
+    <a class="edit-button" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+    <a class="back-button" asp-action="Index">Back to List</a>
+    <a class="back-button" asp-action="AddToTeam" asp-route-id="@Model?.Id" >Add user to team</a>
+</div>

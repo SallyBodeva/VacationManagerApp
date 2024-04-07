@@ -1,0 +1,27 @@
+﻿@model AddToTeamViewModel
+
+<h2>Add to team</h2>
+
+<div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+        <form id="registerForm" asp-action="AddToTeam" method="post">
+            <h2>Add user to team:</h2>
+            <hr />
+            <div class="form-floating mb-3">
+                <select asp-for="TeamName" class="form-select" aria-label="Select a team:">
+                    <option value="">Select a team</option>
+                    @foreach (var teamName in Model.TeamNames)
+                    {
+                        <option value="@teamName">@teamName</option>
+                    }
+                </select>
+                <label for="TeamName">Select a team:</label>
+            </div>
+            <input type="hidden" asp-for="UserId" />
+            <hr />
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Add to Team</button>
+        </form>
+    </div>
+</div>

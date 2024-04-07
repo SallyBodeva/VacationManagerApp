@@ -21,6 +21,6 @@ namespace VacationManagerApp.Data.Models
         public virtual ICollection<VacationRequest> VacationRequests { get; set; } = new List<VacationRequest>();
         public virtual ICollection<SickLeave> SickLeaves { get; set; } = new List<SickLeave>();
 
-        public string Role { get; set; }
+        public string? Role { get; set; }
     }
 }
