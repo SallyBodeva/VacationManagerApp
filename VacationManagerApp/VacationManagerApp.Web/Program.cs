@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using VacationManager.Web.Data;
+using VacationManagerApp.Web.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

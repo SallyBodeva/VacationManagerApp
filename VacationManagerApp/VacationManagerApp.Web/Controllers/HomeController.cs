@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using VacationManager.Web.Models;
+using VacationManagerApp.Web.Models;
 
-namespace VacationManager.Web.Controllers
+namespace VacationManagerApp.Web.Controllers
 {
     public class HomeController : Controller
     {

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VacationManager.Web", "VacationManager.Web\VacationManager.Web.csproj", "{0CF1CE37-37FE-420C-BE26-37330B26D87C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VacationManagerApp.Web", "VacationManagerApp.Web\VacationManagerApp.Web.csproj", "{FE2F2CC9-6ED3-4CD8-9A9E-FB8A6860455B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0CF1CE37-37FE-420C-BE26-37330B26D87C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0CF1CE37-37FE-420C-BE26-37330B26D87C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0CF1CE37-37FE-420C-BE26-37330B26D87C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0CF1CE37-37FE-420C-BE26-37330B26D87C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE2F2CC9-6ED3-4CD8-9A9E-FB8A6860455B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE2F2CC9-6ED3-4CD8-9A9E-FB8A6860455B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE2F2CC9-6ED3-4CD8-9A9E-FB8A6860455B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE2F2CC9-6ED3-4CD8-9A9E-FB8A6860455B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9D130D05-4077-475F-A0E3-9DAD6DED6084}
+		SolutionGuid = {EE10CF2B-BD1B-40AB-8C5A-B5FB0AC05745}
 	EndGlobalSection
 EndGlobal

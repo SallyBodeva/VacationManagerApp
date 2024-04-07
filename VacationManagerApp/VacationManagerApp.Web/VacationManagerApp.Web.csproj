@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-VacationManager.Web-55722dc2-4697-4cff-b4c3-4677f657bc7c</UserSecretsId>
+    <UserSecretsId>aspnet-VacationManagerApp.Web-4d6bba58-fe54-4e9e-af71-6a34de799217</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
