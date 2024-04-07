@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using VacationManagerApp.Web.Models;
+using VacationManagerApp.Shared.Models;
 
 namespace VacationManagerApp.Web.Controllers
 {

@@ -15,4 +15,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VacationManager.ViewModels\VacationManagerApp.ViewModels.csproj" />
+    <ProjectReference Include="..\VacationManagerApp.Common\VacationManagerApp.Common.csproj" />
+    <ProjectReference Include="..\VacationManagerApp.Data\VacationManagerApp.Data.csproj" />
+    <ProjectReference Include="..\VacationManagerApp.Services\VacationManagerApp.Services.csproj" />
+  </ItemGroup>
+
 </Project>

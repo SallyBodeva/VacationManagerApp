@@ -1,4 +1,4 @@
-namespace VacationManagerApp.Web.Models
+namespace VacationManagerApp.Shared.Models
 {
     public class ErrorViewModel
     {
