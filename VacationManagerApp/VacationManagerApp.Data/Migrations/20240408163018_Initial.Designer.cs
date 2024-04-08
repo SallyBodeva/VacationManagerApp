@@ -12,7 +12,7 @@ using VacationManagerApp.Data;
 namespace VacationManagerApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240407184400_Initial")]
+    [Migration("20240408163018_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -183,34 +183,6 @@ namespace VacationManagerApp.Data.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("VacationManagerApp.Data.Models.SickLeave", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("AplicantId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateOnly>("FromDate")
-                        .HasColumnType("date");
-
-                    b.Property<bool>("IsApproved")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("IssueDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateOnly>("ToDate")
-                        .HasColumnType("date");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AplicantId");
-
-                    b.ToTable("SickLeaves");
-                });
-
             modelBuilder.Entity("VacationManagerApp.Data.Models.Team", b =>
                 {
                     b.Property<string>("Id")
@@ -326,28 +298,35 @@ namespace VacationManagerApp.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AplicantId")
+                    b.Property<string>("ApplicantId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateOnly>("FromDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsHalfDay")
+                    b.Property<bool?>("IsHalfDay")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("IssueDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateOnly>("ToDate")
-                        .HasColumnType("date");
+                    b.Property<string>("PatientNote")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AplicantId");
+                    b.HasIndex("ApplicantId");
 
                     b.ToTable("VacationRequests");
                 });
@@ -403,17 +382,6 @@ namespace VacationManagerApp.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("VacationManagerApp.Data.Models.SickLeave", b =>
-                {
-                    b.HasOne("VacationManagerApp.Data.Models.User", "Aplicant")
-                        .WithMany("SickLeaves")
-                        .HasForeignKey("AplicantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Aplicant");
-                });
-
             modelBuilder.Entity("VacationManagerApp.Data.Models.Team", b =>
                 {
                     b.HasOne("VacationManagerApp.Data.Models.Project", "Project")
@@ -442,13 +410,13 @@ namespace VacationManagerApp.Data.Migrations
 
             modelBuilder.Entity("VacationManagerApp.Data.Models.VacationRequest", b =>
                 {
-                    b.HasOne("VacationManagerApp.Data.Models.User", "Aplicant")
+                    b.HasOne("VacationManagerApp.Data.Models.User", "Applicant")
                         .WithMany("VacationRequests")
-                        .HasForeignKey("AplicantId")
+                        .HasForeignKey("ApplicantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Aplicant");
+                    b.Navigation("Applicant");
                 });
 
             modelBuilder.Entity("VacationManagerApp.Data.Models.Project", b =>
@@ -466,8 +434,6 @@ namespace VacationManagerApp.Data.Migrations
 
             modelBuilder.Entity("VacationManagerApp.Data.Models.User", b =>
                 {
-                    b.Navigation("SickLeaves");
-
                     b.Navigation("VacationRequests");
                 });
 #pragma warning restore 612, 618

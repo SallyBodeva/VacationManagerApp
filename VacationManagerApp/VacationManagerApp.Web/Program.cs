@@ -37,7 +37,10 @@ namespace VacationManagerApp.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddTransient<IUserService, UsersService>(); 
+			builder.Services.AddDbContext<ApplicationDbContext>(ServiceLifetime.Transient);
+
+			builder.Services.AddTransient<IUserService, UsersService>();
+            builder.Services.AddTransient<IRequestService, RequestsService>();
             builder.Services.AddTransient<ITeamService, TeamsService>();
 
 

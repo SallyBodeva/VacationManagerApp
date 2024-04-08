@@ -41,12 +41,8 @@ namespace VacationManagerApp.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<VacationRequest>()
-                .HasOne(a => a.Aplicant)
+                .HasOne(a => a.Applicant)
                 .WithMany(r => r.VacationRequests);
-
-            modelBuilder.Entity<SickLeave>()
-              .HasOne(a => a.Aplicant)
-              .WithMany(s=>s.SickLeaves);
 
             modelBuilder.Entity<User>()
                 .Property(user => user.TeamId)
@@ -64,7 +60,6 @@ namespace VacationManagerApp.Data
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<VacationRequest> VacationRequests { get; set; }
-        public virtual DbSet<SickLeave> SickLeaves { get; set; }
 
 
     }

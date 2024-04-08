@@ -206,45 +206,25 @@ namespace VacationManagerApp.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SickLeaves",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FromDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    ToDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    IssueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsApproved = table.Column<bool>(type: "bit", nullable: false),
-                    AplicantId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SickLeaves", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SickLeaves_AspNetUsers_AplicantId",
-                        column: x => x.AplicantId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "VacationRequests",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FromDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    ToDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IssueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsHalfDay = table.Column<bool>(type: "bit", nullable: false),
+                    IsHalfDay = table.Column<bool>(type: "bit", nullable: true),
                     IsApproved = table.Column<bool>(type: "bit", nullable: false),
-                    AplicantId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PatientNote = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ApplicantId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_VacationRequests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_VacationRequests_AspNetUsers_AplicantId",
-                        column: x => x.AplicantId,
+                        name: "FK_VacationRequests_AspNetUsers_ApplicantId",
+                        column: x => x.ApplicantId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -302,19 +282,14 @@ namespace VacationManagerApp.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SickLeaves_AplicantId",
-                table: "SickLeaves",
-                column: "AplicantId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Teams_ProjectId",
                 table: "Teams",
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VacationRequests_AplicantId",
+                name: "IX_VacationRequests_ApplicantId",
                 table: "VacationRequests",
-                column: "AplicantId");
+                column: "ApplicantId");
         }
 
         /// <inheritdoc />
@@ -334,9 +309,6 @@ namespace VacationManagerApp.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "SickLeaves");
 
             migrationBuilder.DropTable(
                 name: "VacationRequests");

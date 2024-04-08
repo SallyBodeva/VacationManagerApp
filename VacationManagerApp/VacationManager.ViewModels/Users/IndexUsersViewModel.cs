@@ -20,7 +20,6 @@ namespace VacationManagerApp.ViewModels.Users
 
         public ICollection<IndexUserViewModel> Users { get; set; } = new List<IndexUserViewModel>();
 
-		public List<int> ItemsPerPageOptions { get; } = new List<int> { 5, 10, 25, 50 };
 
 	}
 }
