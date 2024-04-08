@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace VacationManagerApp.Services
 {
-    public class RequestsService : IRequestService
+    public class RequestsService :IRequestService
     {
 
         private ApplicationDbContext context;
@@ -39,7 +39,7 @@ namespace VacationManagerApp.Services
                 .Select(x => new IndexRequestViewModel()
                 {
                     Id = x.Id,
-                    UserFullName = $"{x.Applicant.FirstName} {x.Applicant.LastName}",
+                    UserFullName = $"{x.Requester.FirstName} {x.Requester.LastName}",
                     Period = ((x.EndDate - x.StartDate).TotalDays).ToString(),
                 })
                 .ToListAsync();
@@ -53,14 +53,14 @@ namespace VacationManagerApp.Services
         public async Task<int> CreateRequestAsync(CreateRequestViewModel model)
         {
             VacationRequest request = null;
-            if (model.Type==GlobalConstants.PaidTimeOff || model.Type== GlobalConstants.UnpaidTimeOff)
+            if (model.Type == GlobalConstants.PaidTimeOff || model.Type == GlobalConstants.UnpaidTimeOff)
             {
                 request = new VacationRequest()
                 {
                     StartDate = model.StartDate,
                     EndDate = model.EndDate,
-                    IssueDate = DateTime.UtcNow,
-                    IsHalfDay = model.HalfDay
+                    IsHalfDay = model.HalfDay,
+                    Type = model.Type
                 };
             }
             else
@@ -69,8 +69,8 @@ namespace VacationManagerApp.Services
                 {
                     StartDate = model.StartDate,
                     EndDate = model.EndDate,
-                    IssueDate = DateTime.UtcNow,
-                    PatientNote = await ImageToStringAsync(model.File)
+                    PatientNote = await ImageToStringAsync(model.File),
+                    Type = model.Type
                 };
             }
             context.VacationRequests.Add(request);

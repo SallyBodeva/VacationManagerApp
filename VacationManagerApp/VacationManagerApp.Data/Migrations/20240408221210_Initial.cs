@@ -212,19 +212,19 @@ namespace VacationManagerApp.Data.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IssueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsHalfDay = table.Column<bool>(type: "bit", nullable: true),
+                    DateOfRequest = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsHalfDay = table.Column<bool>(type: "bit", nullable: false),
                     IsApproved = table.Column<bool>(type: "bit", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PatientNote = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ApplicantId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    RequesterId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_VacationRequests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_VacationRequests_AspNetUsers_ApplicantId",
-                        column: x => x.ApplicantId,
+                        name: "FK_VacationRequests_AspNetUsers_RequesterId",
+                        column: x => x.RequesterId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -287,9 +287,9 @@ namespace VacationManagerApp.Data.Migrations
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VacationRequests_ApplicantId",
+                name: "IX_VacationRequests_RequesterId",
                 table: "VacationRequests",
-                column: "ApplicantId");
+                column: "RequesterId");
         }
 
         /// <inheritdoc />

@@ -41,7 +41,7 @@ namespace VacationManagerApp.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<VacationRequest>()
-                .HasOne(a => a.Applicant)
+                .HasOne(a => a.Requester)
                 .WithMany(r => r.VacationRequests);
 
             modelBuilder.Entity<User>()

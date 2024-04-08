@@ -13,10 +13,11 @@ namespace VacationManagerApp.ViewModels.Requests
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public bool? HalfDay { get; set; }
+        public bool HalfDay { get; set; }
         public string? Type { get; set; }
+        public DateTime DateOfRequest { get; set; }
         [BindProperty]
         public IFormFile? File { get; set; }
-        public string ApplicantId { get; set; }
+        public User Requester { get; set; }
     }
 }
