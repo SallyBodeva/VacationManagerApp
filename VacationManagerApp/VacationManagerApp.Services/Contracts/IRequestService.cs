@@ -11,5 +11,7 @@ namespace VacationManagerApp.Services.Contracts
     {
         public Task<int> GetReuestsCountAsync();
         public Task<IndexRequestsViewModel> GetRequestsAsync(IndexRequestsViewModel requests);
+
+        public Task<int> CreateRequestAsync(CreateRequestViewModel model);
     }
 }

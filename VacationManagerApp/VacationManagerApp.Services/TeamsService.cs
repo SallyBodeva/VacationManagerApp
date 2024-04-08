@@ -125,9 +125,9 @@ namespace VacationManagerApp.Services
 			if (leader==null)
             {
 				 team = new Team()
-				{
+				 {
 					Name = model.TeamName
-				};
+				 };
 			}
             else
             {
@@ -139,7 +139,7 @@ namespace VacationManagerApp.Services
 					LeaderId = model.TeamLeader.Id
 				};
 				leader.TeamId = team.Id;
-				leader.TeamId = team.Id;
+				leader.TeamLedId = team.Id;
 				leader.TeamLed = team;
 				leader.Role = GlobalConstants.Developer;
 				userManager.AddToRoleAsync(leader, GlobalConstants.Developer);
