@@ -1,20 +1,20 @@
 ﻿@model ProjectDetailsViewModel
 
 @{
-    ViewData["Title"] = Model.Project.Name;
+    ViewData["Title"] = Model.Name;
 }
 
 <h1>Details</h1>
 
 <div class="details">
-    <h4>@Model.Project.Name</h4>
+    <h4>@Model.Name</h4>
     <hr />
     <div class="row">
         <div class="col-md-3 col-12">
             Name
         </div>
         <div class="col-md-9 col-12">
-            @Model.Project.Name
+            @Model.Name
         </div>
     </div>
     <div class="row">
@@ -22,47 +22,39 @@
             Description
         </div>
         <div class="col-md-9 col-12">
-            @Model.Project.Description
+            @Model.Description
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-3 col-12">
-            Teams at work
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 col-12">
-            Add team to project
-        </div>
-        <div class="col-md-9 col-12">
-            <form asp-action="AddTeamToProject">
-                <input asp-for="ProjectId" type="hidden" />
-                <select asp-for="TeamToAddId" class="form-control">
-                    @foreach (Team team in Model.TeamsWithoutProject)
+    @if (Model.Teams.Count == 0)
+    {
+        <p>No team is working in this project</p>
+    }
+    else
+    {
+        <div class="form-group">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Team name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Teams)
                     {
-                        <option value="@team.Id">@team.Name</option>
+                        <tr>
+                            <td>@item.Name</td>
+                        </tr>
                     }
-                </select>
-                <input type="submit" class="btn btn-success" value="Add" />
-            </form>
+                </tbody>
+            </table>
         </div>
-        <div class="col-md-9 col-12">
-            @foreach (var team in Model.Project.Teams)
-            {
-                <div class="row">
-                    <div class="col-8">@team.Name</div>
-                    <div class="col-4">
-                        <form asp-action="RemoveTeamFromProject" asp-route-teamId="@team.Id" asp-route-projectId="@Model.Project.Id">
-                            <input type="submit" class="btn btn-danger" value="Remove">
-                        </form>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
+    }
+    <a asp-action="AddTeamToProject" asp-controller="Projects" asp-route-id="@Model.Id" class="btn btn-secondary">Add team to work</a>
+    <a asp-action="RemoveTeamFromProject" asp-controller="Projects" asp-route-id="@Model.Id" class="btn btn-secondary">Remove team not to work anymore</a>
+   
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Project.Id" class="text-warning">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="text-warning">Edit</a> |
     <a asp-action="Index" class="text-info">Back to List</a>
 </div>
 

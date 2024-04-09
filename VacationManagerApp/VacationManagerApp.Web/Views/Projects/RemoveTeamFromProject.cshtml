@@ -1,0 +1,26 @@
+﻿@model RemoveTeamViewModel
+<h2>Remove team from project</h2>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form id="registerForm" asp-controller="Projects" asp-action="RemoveTeamFromProject" method="post">
+                <div class="mb-3">
+                    <label for="teamSelect" class="form-label">Select team:</label>
+                    <select asp-for="TeamName" class="form-select" id="userSelect">
+                        <option value="">Select team</option>
+                        @foreach (var teamName in Model.TeamNames)
+                        {
+                            <option value="@teamName">@teamName</option>
+                        }
+                    </select>
+                </div>
+                <input type="hidden" asp-for="ProjectId" />
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Remove team</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

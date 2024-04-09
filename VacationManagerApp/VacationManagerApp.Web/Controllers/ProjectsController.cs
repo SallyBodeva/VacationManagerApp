@@ -4,6 +4,7 @@ using VacationManagerApp.Data;
 using VacationManagerApp.Services;
 using VacationManagerApp.Services.Contracts;
 using VacationManagerApp.ViewModels.Projects;
+using VacationManagerApp.ViewModels.Users;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace VacationManagerApp.Web.Controllers
@@ -53,7 +54,30 @@ namespace VacationManagerApp.Web.Controllers
 
             return View(project);
         }
-        public async Task<IActionResult> AddTeamToProject(ProjectDetailsViewModel model)
+        [HttpGet]
+        public async Task<IActionResult> RemoveTeamFromProject(string id)
+        {
+            var model = await projectService.GetTeamToRemoveAsync(id);
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> RemoveTeamFromProject(RemoveTeamViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await projectService.RemoveTeamFromProject(model);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> AddTeamToProject(string id)
+        {
+            var model = await projectService.GetTeamToAddAsync(id);
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddTeamToProject(AddTeamToProject model)
         {
             if (ModelState.IsValid)
             {
@@ -62,17 +86,34 @@ namespace VacationManagerApp.Web.Controllers
             }
             return View(model);
         }
-      public async Task<IActionResult> Delete(string id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            var model = await projectService.GetProjectToEditAsync(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditProjectViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await projectService.UpdateProjectAsync(model);
+                return this.RedirectToAction(nameof(Index));
+            }
+            return View(model);
+        }
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var project = await projectService.DeleteProject(id);
+            var project = await projectService.DeleteProjectAsync(id);
 
 
-            return View(nameof(Index));
+            return RedirectToAction(nameof(Index));
         }
     }
 }

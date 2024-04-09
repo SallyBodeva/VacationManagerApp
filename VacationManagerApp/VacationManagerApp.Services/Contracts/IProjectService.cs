@@ -13,8 +13,13 @@ namespace VacationManagerApp.Services.Contracts
         public Task<int> GetProjectCountAsync();
         public Task<string> CreateProjectAsync(CreateProjectViewModel model);
         public Task<ProjectDetailsViewModel> GetProjectDetails(string id);
-        public Task<string> AddTeamToProject(ProjectDetailsViewModel model);
-        public Task<int> DeleteProject(string id);
+        public Task<string> AddTeamToProject(AddTeamToProject model);
+        public  Task<AddTeamToProject> GetTeamToAddAsync(string id);
+        public  Task<string> RemoveTeamFromProject(RemoveTeamViewModel model);
+        public  Task<RemoveTeamViewModel> GetTeamToRemoveAsync(string id);
+        public Task<EditProjectViewModel?> GetProjectToEditAsync(string id);
+        public Task<string> UpdateProjectAsync(EditProjectViewModel project);
+        public Task<int> DeleteProjectAsync(string id);
     }
 
 }

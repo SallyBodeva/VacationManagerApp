@@ -9,9 +9,10 @@ namespace VacationManagerApp.ViewModels.Projects
 {
     public class ProjectDetailsViewModel
     {
-        public Project Project { get; set; }
-        public List<Team> TeamsWithoutProject { get; set; }
-        public string TeamToAddId { get; set; }
-        public string ProjectId { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public ICollection<Team> Teams { get; set; } = new List<Team>();
+
     }
 }

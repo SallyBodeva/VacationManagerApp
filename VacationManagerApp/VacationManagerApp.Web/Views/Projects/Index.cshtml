@@ -1,7 +1,7 @@
 ﻿@model IndexProjectsViewModel
 
 @{
-    ViewData["Title"] = "Projects";
+    ViewData["Title"] = "Index";
 }
 
 <h1>Projects</h1>
@@ -22,8 +22,6 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model.Projects.Count!=0)
-        {
             @foreach (var project in Model.Projects)
             {
                 <tr>
@@ -36,13 +34,11 @@
                     <td>
                         <a asp-action="Details" asp-action="Details" asp-route-id="@project.Id" class="btn btn-sm btn-success">Details</a>
                         <a asp-action="Edit" asp-action="Edit" asp-route-id="@project.Id" class="btn btn-sm btn-secondary">Edit</a>
-                        <form asp-action="Delete" asp-route-id="@project.Id" class="delete-button">
-                            <input class="text-danger" type="submit" value="Delete" />
-                        </form>
+                        <a asp-action="Delete" asp-action="Delete" asp-route-id="@project.Id" class="btn btn-sm btn-danger">Delete</a>
                     </td>
                 </tr>
             }
-        }
+        
         
     </tbody>
 </table>
