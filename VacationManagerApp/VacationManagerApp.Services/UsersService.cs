@@ -147,9 +147,24 @@ namespace VacationManagerApp.Services
             return await userManager.Users.CountAsync();
         }
 
-        public Task<AddToTeamViewModel> GetUserToAddAsync(string id)
+        public async Task<AddToTeamViewModel> GetUserToAddAsync(string id)
         {
-            throw new NotImplementedException();
+            AddToTeamViewModel? result = null;
+
+            User? user = await GetUserByIdAsync(id);
+            List<string> teamName = context.Teams.Select(x => x.Name).ToList();
+
+            if (user != null)
+            {
+                result = new AddToTeamViewModel()
+                {
+                    UserId = user.Id,
+                    TeamNames = teamName
+                };
+            }
+
+            return result;
+
         }
 
         public async Task<EditUserViewModel?> GetUserToEditAsync(string id)

@@ -126,6 +126,22 @@ namespace VacationManagerApp.Web.Controllers
             }
             return View(model);
         }
+        public async Task<IActionResult> AssignLeader(string id)
+        {
+            var model = await teamService.GetUserToAssignAsync(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignLeader(AddUserToTeamViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await teamService.AssignUserToTeamAsync(model);
+                return this.RedirectToAction(nameof(Index));
+            }
+            return View(model);
+        }
         public async Task<IActionResult> RemoveUserOfTeam(string id)
         {
             var model = await teamService.GetUserToRemoveAsync(id);

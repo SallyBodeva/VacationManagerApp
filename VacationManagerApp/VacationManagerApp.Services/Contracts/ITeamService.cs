@@ -29,5 +29,7 @@ namespace VacationManagerApp.Services.Contracts
         public Task<int> DeleteTeamAsync(string id);
         public Task<string> RemoveUserOfTeamAsync(AddUserToTeamViewModel model);
         public Task<DeleteUserViewModel> GetUserToRemoveAsync(string id);
+        public Task<string> AssignUserToTeamAsync(AddUserToTeamViewModel model);
+        public Task<AssignLeaderViewModel> GetUserToAssignAsync(string id);
     }
 }

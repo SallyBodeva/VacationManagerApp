@@ -10,6 +10,7 @@ using VacationManagerApp.Services.Contracts;
 using VacationManagerApp.ViewModels.Teams;
 using Microsoft.EntityFrameworkCore;
 using VacationManagerApp.Common;
+using VacationManagerApp.ViewModels.Users;
 
 namespace VacationManagerApp.Services
 {
@@ -101,6 +102,41 @@ namespace VacationManagerApp.Services
             return result;
         }
 
+        public async Task<AssignLeaderViewModel> GetUserToAssignAsync(string id)
+        {
+            AssignLeaderViewModel? result = null;
+
+            Team? t = await GetTeamByIdAsync(id);
+            List<string> userName = await userManager.Users
+                .Where(x => x.TeamId == t.Id && x.Role != GlobalConstants.AdminRole && x.Role != GlobalConstants.TeamLeader)
+                .Select(x => x.Email).ToListAsync();
+
+            if (t != null)
+            {
+                result = new AssignLeaderViewModel()
+                {
+                    UserNames = userName,
+                    TeamId = t.Id
+                };
+            }
+
+            return result;
+        }
+        public async Task<string> AssignUserToTeamAsync(AddUserToTeamViewModel model)
+        {
+            Team team = await GetTeamByIdAsync(model.TeamId);
+            User? user = await userManager.Users.FirstOrDefaultAsync(x => x.Email == model.Email);
+
+            if (team != null && user != null)
+            {
+                team.Leader = user;
+                user.TeamLed = team;
+                await  userManager.AddToRoleAsync(user, GlobalConstants.TeamLeader);
+                await context.SaveChangesAsync();
+            }
+
+            return model.TeamId;
+        }
         public async Task<string> AddUserToTeamAsync(AddUserToTeamViewModel model)
         {
             Team team = await GetTeamByIdAsync(model.TeamId);
