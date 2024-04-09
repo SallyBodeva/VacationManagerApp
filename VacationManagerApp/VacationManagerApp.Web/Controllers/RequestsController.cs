@@ -36,7 +36,7 @@ namespace VacationManagerApp.Web.Controllers
         public async Task<IActionResult> Create(CreateRequestViewModel model)
         {
             model.DateOfRequest = DateTime.Today;
-            model.Requester = userManager.Users.FirstOrDefault(x => x.Id == userManager.GetUserId(User));
+            model.Requester = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             if (ModelState.IsValid)
             {
                 await requestService.CreateRequestAsync(model);

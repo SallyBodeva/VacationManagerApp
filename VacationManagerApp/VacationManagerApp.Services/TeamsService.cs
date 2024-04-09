@@ -117,33 +117,10 @@ namespace VacationManagerApp.Services
 
         public async Task<string> CreateTeamAsync(CreateTeamViewModel model)
         {
-            User? leader = await userManager.Users
-               .Where(x => x.TeamId==null)
-               .FirstOrDefaultAsync();
-            Team team = null;
 
-			if (leader==null)
-            {
-				 team = new Team()
-				 {
-					Name = model.TeamName
-				 };
-			}
-            else
-            {
-				model.TeamLeader = leader;
-				team = new Team()
-				{
-					Name = model.TeamName,
-					Leader = model.TeamLeader,
-					LeaderId = model.TeamLeader.Id
-				};
-				leader.TeamId = team.Id;
-				leader.TeamLedId = team.Id;
-				leader.TeamLed = team;
-				leader.Role = GlobalConstants.Developer;
-				userManager.AddToRoleAsync(leader, GlobalConstants.Developer);
-			}
+            Team team = new Team() { Name = model.TeamName };
+
+
             context.Add(team);
             await context.SaveChangesAsync();
 
@@ -159,6 +136,15 @@ namespace VacationManagerApp.Services
                 return null;
             }
             var teamLeader = team.Leader;
+            if (team.Leader==null)
+            {
+                return new EditTeamViewModel()
+                {
+                    Id = team.Id,
+                    Name = team.Name,
+                    Developers = team.Developers.Select(x => x).ToList()
+                };
+            }
             return new EditTeamViewModel()
             {
                 Id = team.Id,

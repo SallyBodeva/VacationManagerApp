@@ -40,7 +40,7 @@ namespace VacationManagerApp.Services
                 {
                     Id = x.Id,
                     UserFullName = $"{x.Requester.FirstName} {x.Requester.LastName}",
-                    Period = ((x.EndDate - x.StartDate).TotalDays).ToString(),
+                    Period = Math.Ceiling((x.EndDate - x.StartDate).TotalDays).ToString(),
                 })
                 .ToListAsync();
 
@@ -73,6 +73,7 @@ namespace VacationManagerApp.Services
                     Type = model.Type
                 };
             }
+            request.RequesterId = model.Requester;
             context.VacationRequests.Add(request);
             return await context.SaveChangesAsync();
 

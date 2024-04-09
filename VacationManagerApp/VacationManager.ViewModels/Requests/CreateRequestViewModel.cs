@@ -18,6 +18,7 @@ namespace VacationManagerApp.ViewModels.Requests
         public DateTime DateOfRequest { get; set; }
         [BindProperty]
         public IFormFile? File { get; set; }
-        public User Requester { get; set; }
+
+        public string? Requester { get; set; }
     }
 }

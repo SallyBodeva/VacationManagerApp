@@ -15,6 +15,6 @@ namespace VacationManagerApp.ViewModels.Teams
 
         public new List<User>? Developers { get; set; } = new List<User>();
         public User? TeamLeader { get; set; }
-        public string LeaderName { get; set; }
+        public string? LeaderName { get; set; }
     }
 }

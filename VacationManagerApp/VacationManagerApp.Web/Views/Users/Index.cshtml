@@ -22,7 +22,7 @@
                 <td>
                     <a asp-action="Details" asp-action="Details" asp-route-id="@user.Id"  class="btn btn-sm btn-success">Details</a>
                     <a asp-action="Edit" asp-action="Edit" asp-route-id="@user.Id" class="btn btn-sm btn-secondary">Edit</a>
-                    @if (user.Role!="Admin")
+                    @if (user.Role!=GlobalConstants.AdminRole)
                     {
                         <a asp-action="Delete" asp-action="Delete" asp-route-id="@user.Id" class="btn btn-sm btn-danger">Delete</a>
                     }

@@ -72,8 +72,9 @@ namespace VacationManagerApp.Services
                 else
                 {
                     await userManager.AddToRoleAsync(user, GlobalConstants.Unassigned);
-                     user.Role = GlobalConstants.Unassigned;
+                    user.Role = GlobalConstants.Unassigned;
                 }
+                await userManager.UpdateAsync(user);
             }
             return user.Id;
         }

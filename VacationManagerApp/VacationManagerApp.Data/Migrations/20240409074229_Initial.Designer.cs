@@ -12,7 +12,7 @@ using VacationManagerApp.Data;
 namespace VacationManagerApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240409005021_Initial")]
+    [Migration("20240409074229_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
