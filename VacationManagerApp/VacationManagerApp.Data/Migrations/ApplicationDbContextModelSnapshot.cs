@@ -384,7 +384,7 @@ namespace VacationManagerApp.Data.Migrations
                     b.HasOne("VacationManagerApp.Data.Models.Project", "Project")
                         .WithMany("Teams")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Project");
                 });
@@ -394,7 +394,7 @@ namespace VacationManagerApp.Data.Migrations
                     b.HasOne("VacationManagerApp.Data.Models.Team", "Team")
                         .WithMany("Developers")
                         .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("VacationManagerApp.Data.Models.Team", "TeamLed")
                         .WithOne("Leader")

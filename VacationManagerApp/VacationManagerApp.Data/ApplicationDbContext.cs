@@ -27,7 +27,7 @@ namespace VacationManagerApp.Data
             modelBuilder.Entity<User>()
                 .HasOne(user => user.Team)
                 .WithMany(team => team.Developers)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Team>()
                 .HasOne(team => team.Leader)
@@ -38,7 +38,7 @@ namespace VacationManagerApp.Data
                 .HasOne(team => team.Project)
                 .WithMany(project => project.Teams)
                 .HasForeignKey(team => team.ProjectId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<VacationRequest>()
                 .HasOne(a => a.Requester)

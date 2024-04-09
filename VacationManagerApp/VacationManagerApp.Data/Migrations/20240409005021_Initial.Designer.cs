@@ -12,7 +12,7 @@ using VacationManagerApp.Data;
 namespace VacationManagerApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240408221210_Initial")]
+    [Migration("20240409005021_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -387,7 +387,7 @@ namespace VacationManagerApp.Data.Migrations
                     b.HasOne("VacationManagerApp.Data.Models.Project", "Project")
                         .WithMany("Teams")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Project");
                 });
@@ -397,7 +397,7 @@ namespace VacationManagerApp.Data.Migrations
                     b.HasOne("VacationManagerApp.Data.Models.Team", "Team")
                         .WithMany("Developers")
                         .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("VacationManagerApp.Data.Models.Team", "TeamLed")
                         .WithOne("Leader")
