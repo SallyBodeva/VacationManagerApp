@@ -132,11 +132,13 @@ namespace VacationManagerApp.Services
             {
                 team.Leader = user;
                 user.TeamLed = team;
+                user.Role = GlobalConstants.TeamLeader;
                 await  userManager.AddToRoleAsync(user, GlobalConstants.TeamLeader);
                 await context.SaveChangesAsync();
             }
             context.Teams.Update(team);
             await userManager.UpdateAsync(user);
+            await context.SaveChangesAsync();
             return model.TeamId;
         }
         public async Task<string> AddUserToTeamAsync(AddUserToTeamViewModel model)
@@ -147,9 +149,11 @@ namespace VacationManagerApp.Services
             if (team != null && user != null)
             {
                 team.Developers.Add(user);
+                user.Role = GlobalConstants.Developer;
                 await context.SaveChangesAsync();
             }
-
+            context.Update(user);
+            await context.SaveChangesAsync();
             return model.TeamId;
         }
 

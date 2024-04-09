@@ -182,9 +182,9 @@ namespace VacationManagerApp.Services
             {
                 oldProject.Name = project.ProjectName;
                 oldProject.Description = project.Description;
-                context.Projects.Update(oldProject);
             }
-
+            context.Update(oldProject);
+            await context.SaveChangesAsync();
             return project.Id;
         }
         public async Task<int> DeleteProjectAsync(string id)
