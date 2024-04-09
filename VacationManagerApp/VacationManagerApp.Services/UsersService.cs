@@ -40,6 +40,7 @@ namespace VacationManagerApp.Services
                 u.Role = GlobalConstants.Developer;
                 await context.SaveChangesAsync();
             }
+            await userManager.UpdateAsync(u);
             return u.Id;
         }
 

@@ -55,8 +55,12 @@ namespace VacationManagerApp.Web.Controllers
         }
         public async Task<IActionResult> AddTeamToProject(ProjectDetailsViewModel model)
         {
-            await projectService.AddTeamToProject(model);
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                await projectService.AddTeamToProject(model);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
         }
       public async Task<IActionResult> Delete(string id)
         {

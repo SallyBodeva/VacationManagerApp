@@ -41,7 +41,8 @@ namespace VacationManagerApp.Services
                 {
                     Id = x.Id,
                     TeamName = x.Name,
-                    TeamLeader = $"{x.Leader.FirstName} {x.Leader.FirstName}"
+                    TeamLeader = $"{x.Leader.FirstName} {x.Leader.FirstName}",
+                    TeamLeaderId = x.Leader.Id
                 })
                 .ToListAsync();
 
@@ -134,7 +135,8 @@ namespace VacationManagerApp.Services
                 await  userManager.AddToRoleAsync(user, GlobalConstants.TeamLeader);
                 await context.SaveChangesAsync();
             }
-
+            context.Teams.Update(team);
+            await userManager.UpdateAsync(user);
             return model.TeamId;
         }
         public async Task<string> AddUserToTeamAsync(AddUserToTeamViewModel model)

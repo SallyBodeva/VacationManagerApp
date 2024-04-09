@@ -18,5 +18,6 @@ namespace VacationManagerApp.ViewModels.Teams
         {
         }
         public ICollection<IndexTeamViewModel> Teams { get; set; } = new List<IndexTeamViewModel>();
+        public string? LogedUserid { get; set; }
     }
 }

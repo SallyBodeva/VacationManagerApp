@@ -12,5 +12,6 @@ namespace VacationManagerApp.ViewModels.Teams
         public string Id { get; set; }
         public string TeamName { get; set; }
         public string TeamLeader{ get; set; }
+        public string? TeamLeaderId { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using VacationManagerApp.Data;
 using VacationManagerApp.Services.Contracts;
 using VacationManagerApp.ViewModels.Teams;
@@ -15,8 +17,10 @@ namespace VacationManagerApp.Web.Controllers
             _context = context;
             this.teamService = teamService;
         }
+        [Authorize]
         public async Task<IActionResult> Index(IndexTeamsViewModel model)
         {
+            model.LogedUserid = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             model = await teamService.GetTeamsAsync(model);
             return View(model);
         }
