@@ -9,6 +9,7 @@ using VacationManagerApp.ViewModels.Teams;
 using System.Security.Claims;
 using Azure.Core;
 using Microsoft.AspNetCore.Http;
+using VacationManagerApp.ViewModels.Projects;
 
 namespace VacationManagerApp.Services
 {
@@ -24,31 +25,40 @@ namespace VacationManagerApp.Services
             this.userManager = userManager;
             this.roleManager = roleManager;
         }
-        public async Task<IndexRequestsViewModel> GetRequestsAsync(IndexRequestsViewModel requests)
+        public async Task<IndexRequestsViewModel> GetMyRequestsAsync(IndexRequestsViewModel model)
         {
-            if (requests == null)
-            {
-                requests = new IndexRequestsViewModel(0);
-            }
-            requests.ElementsCount = await GetReuestsCountAsync();
+            User? user = await userManager.FindByIdAsync(model.UserId);
+            IQueryable<VacationRequest> requests = null;
 
-            requests.Requests = await context
-                .VacationRequests
-                .Skip((requests.Page - 1) * requests.ItemsPerPage)
-                .Take(requests.ItemsPerPage)
+                requests = context.VacationRequests
+                     .Where(x => x.RequesterId == model.UserId);
+                model.ElementsCount = await GetMyRequestsCountAsync(model.UserId);
+
+            model.Requests = await 
+                requests
+                .Skip((model.Page - 1) * model.ItemsPerPage)
+                .Take(model.ItemsPerPage)
                 .Select(x => new IndexRequestViewModel()
                 {
                     Id = x.Id,
                     UserFullName = $"{x.Requester.FirstName} {x.Requester.LastName}",
-                    Period = Math.Ceiling((x.EndDate - x.StartDate).TotalDays).ToString(),
+                    Days = Math.Ceiling((x.EndDate - x.StartDate).TotalDays).ToString(),
+                    Period = $"{x.StartDate.ToShortDateString()} - {x.EndDate.ToShortDateString()}",
+                    IsApproved = x.IsApproved
                 })
                 .ToListAsync();
 
-            return requests;
+            return model;
         }
-        public async Task<int> GetReuestsCountAsync()
+        public async Task<int> DeleteMyRequestsAsync(string id)
         {
-            return await context.VacationRequests.CountAsync();
+            VacationRequest request = await context.VacationRequests.Where(x => x.Id == id).FirstOrDefaultAsync();
+            context.Remove(request);
+            return await context.SaveChangesAsync();
+        }
+        public async Task<int> GetMyRequestsCountAsync(string userId)
+        {
+            return context.VacationRequests.Count(x => x.RequesterId == userId);
         }
         public async Task<int> CreateRequestAsync(CreateRequestViewModel model)
         {
@@ -97,6 +107,37 @@ namespace VacationManagerApp.Services
                 }
             }
             return null;
+        }
+        public async Task<EditRequestViewModel?> GetRequestToEditAsync(string id)
+        {
+            EditRequestViewModel? result = null;
+
+            VacationRequest? request = await context.VacationRequests.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (request != null)
+            {
+                result = new EditRequestViewModel()
+                {
+                    Id = request.Id,
+                    StartDate = request.StartDate,
+                    EndDate = request.EndDate,
+                };
+            }
+
+            return result;
+        }
+        public async Task<string> UpdateRequestAsync(EditRequestViewModel request)
+        {
+            VacationRequest? oldRequest = await context.VacationRequests.FirstOrDefaultAsync(x => x.Id == request.Id);
+
+            if (oldRequest != null)
+            {
+                oldRequest.StartDate = request.StartDate;
+                oldRequest.EndDate = request.EndDate;
+            }
+            context.Update(oldRequest);
+            await context.SaveChangesAsync();
+            return request.Id;
         }
     }
 }

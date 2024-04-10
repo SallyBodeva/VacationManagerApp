@@ -9,9 +9,12 @@ namespace VacationManagerApp.Services.Contracts
 {
     public interface IRequestService
     {
-        public Task<int> GetReuestsCountAsync();
-        public Task<IndexRequestsViewModel> GetRequestsAsync(IndexRequestsViewModel requests);
+        public Task<int> GetMyRequestsCountAsync(string userId);
+        public Task<IndexRequestsViewModel> GetMyRequestsAsync(IndexRequestsViewModel requests);
 
         public Task<int> CreateRequestAsync(CreateRequestViewModel model);
+        public Task<int> DeleteMyRequestsAsync(string id);
+        public  Task<EditRequestViewModel?> GetRequestToEditAsync(string id);
+        public Task<string> UpdateRequestAsync(EditRequestViewModel request);
     }
 }

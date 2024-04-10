@@ -17,7 +17,7 @@ namespace VacationManagerApp.ViewModels.Requests
         public IndexRequestsViewModel(int elementsCount, int itemsPerPage = 10, string action = "Index") : base(elementsCount, itemsPerPage, action)
         {
         }
-
+        public string UserId { get; set; }
         public ICollection<IndexRequestViewModel> Requests { get; set; } = new List<IndexRequestViewModel>();
     }
 }

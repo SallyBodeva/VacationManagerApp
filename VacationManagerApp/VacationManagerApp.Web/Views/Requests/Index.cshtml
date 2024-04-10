@@ -16,6 +16,9 @@
                 Applicant name
             </th>
             <th>
+                Period
+            </th>
+            <th>
                 Total days for vacation
             </th>
             <th></th>
@@ -32,12 +35,15 @@
                     @Html.DisplayFor(modelItem => item.Period)
                 </td>
                 <td>
-                    @if (User.IsInRole(GlobalConstants.AdminRole))
+                    @Html.DisplayFor(modelItem => item.Days)
+                </td>
+                <td>
+                   
+                    @if (item.IsApproved==false)
                     {
                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a>
                         <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
                     }
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a>
                 </td>
             </tr>
         }
