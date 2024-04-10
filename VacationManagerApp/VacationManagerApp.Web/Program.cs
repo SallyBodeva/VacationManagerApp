@@ -41,6 +41,7 @@ namespace VacationManagerApp.Web
             builder.Services.AddTransient<IRequestService, RequestsService>();
             builder.Services.AddTransient<ITeamService, TeamsService>();
             builder.Services.AddTransient<IProjectService, ProjectService>();
+            builder.Services.AddTransient<IRoleService, RoleService>();
 
             var app = builder.Build();
 

@@ -38,6 +38,7 @@ namespace VacationManagerApp.Services
             {
                 t.Developers.Add(u);
                 u.Role = GlobalConstants.Developer;
+                await userManager.AddToRoleAsync(u, GlobalConstants.Developer);
                 await context.SaveChangesAsync();
             }
             await userManager.UpdateAsync(u);

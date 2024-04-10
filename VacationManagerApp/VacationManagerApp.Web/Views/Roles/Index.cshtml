@@ -1,0 +1,45 @@
+﻿@model IndexRolesViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Roles</h1>
+
+<a asp-action="Create" asp-action="Create" class="btn btn-sm btn-secondary">Create</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Role Name
+            </th>
+            <th>
+                Members count
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in Model.Roles)
+        {
+            <tr>
+                <td>
+                    @role.Name
+                </td>
+                <td>
+                    @role.MembersCount
+                </td>
+                @if (User.IsInRole(GlobalConstants.AdminRole))
+                {
+                    <td>
+
+                        <a asp-action="GetMembers" asp-action="GetMembers" asp-route-id="@role.Id" class="btn btn-sm btn-secondary">Members</a>
+                    </td>
+                }
+            </tr>
+        }
+
+
+    </tbody>
+</table>

@@ -150,6 +150,7 @@ namespace VacationManagerApp.Services
             {
                 team.Developers.Add(user);
                 user.Role = GlobalConstants.Developer;
+                await userManager.AddToRoleAsync(user, GlobalConstants.Developer);
                 await context.SaveChangesAsync();
             }
             context.Update(user);
