@@ -78,5 +78,12 @@ namespace VacationManagerApp.Web.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+        public async Task<IActionResult> Pending(PendingRequestsViewModel model)
+        {
+            model = await requestService.GetPendingRequestsAsync(model);
+            return View(model);
+        }
+
     }
 }

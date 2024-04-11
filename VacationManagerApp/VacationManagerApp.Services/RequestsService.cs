@@ -13,28 +13,30 @@ using VacationManagerApp.ViewModels.Projects;
 
 namespace VacationManagerApp.Services
 {
-    public class RequestsService :IRequestService
+    public class RequestsService : IRequestService
     {
 
         private ApplicationDbContext context;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<User> userManager;
-        public RequestsService(ApplicationDbContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        private readonly IHttpContextAccessor httpContextAccessor;
+        public RequestsService(ApplicationDbContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IHttpContextAccessor httpContextAccessor)
         {
             this.context = context;
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.httpContextAccessor = httpContextAccessor;
         }
         public async Task<IndexRequestsViewModel> GetMyRequestsAsync(IndexRequestsViewModel model)
         {
             User? user = await userManager.FindByIdAsync(model.UserId);
             IQueryable<VacationRequest> requests = null;
 
-                requests = context.VacationRequests
-                     .Where(x => x.RequesterId == model.UserId);
-                model.ElementsCount = await GetMyRequestsCountAsync(model.UserId);
+            requests = context.VacationRequests
+                 .Where(x => x.RequesterId == model.UserId);
+            model.ElementsCount = await GetMyRequestsCountAsync(model.UserId);
 
-            model.Requests = await 
+            model.Requests = await
                 requests
                 .Skip((model.Page - 1) * model.ItemsPerPage)
                 .Take(model.ItemsPerPage)
@@ -138,6 +140,27 @@ namespace VacationManagerApp.Services
             context.Update(oldRequest);
             await context.SaveChangesAsync();
             return request.Id;
+        }
+        public async Task<PendingRequestsViewModel> GetPendingRequestsAsync(PendingRequestsViewModel model)
+        {
+            model.AdminId = userManager.Users.FirstOrDefaultAsync(x => x.Role == GlobalConstants.AdminRole).Result.Id; 
+            model.LeaderIds = userManager.Users.Where(x => x.Role == GlobalConstants.TeamLeader).Select(x=>x.Id).ToList();
+
+            model.LoggedUser = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            model.AdminRequests = new List<VacationRequest>();
+            model.LeaderRequests = new List<VacationRequest>();
+
+            model.AdminRequests = await context.VacationRequests
+                .Where(x => !x.IsApproved &&( x.Requester.Team.Leader == null || x.Requester.Team == null))
+                .ToListAsync();
+
+            model.LeaderRequests = await context.VacationRequests
+                .Where(x => !x.IsApproved && x.Requester.Team.LeaderId == model.LoggedUser)
+                .ToListAsync();
+
+            return model;
+
         }
     }
 }

@@ -16,5 +16,6 @@ namespace VacationManagerApp.Services.Contracts
         public Task<int> DeleteMyRequestsAsync(string id);
         public  Task<EditRequestViewModel?> GetRequestToEditAsync(string id);
         public Task<string> UpdateRequestAsync(EditRequestViewModel request);
+        public Task<PendingRequestsViewModel> GetPendingRequestsAsync(PendingRequestsViewModel model);
     }
 }

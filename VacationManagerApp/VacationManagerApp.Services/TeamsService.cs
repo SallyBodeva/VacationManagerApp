@@ -131,6 +131,7 @@ namespace VacationManagerApp.Services
             if (team != null && user != null)
             {
                 team.Leader = user;
+                team.LeaderId = user.Id;
                 user.TeamLed = team;
                 user.Role = GlobalConstants.TeamLeader;
                 await  userManager.AddToRoleAsync(user, GlobalConstants.TeamLeader);

@@ -1,0 +1,74 @@
+﻿@model PendingRequestsViewModel
+
+<h2>Pending Vacation Requests</h2>
+
+@if (Model.AdminRequests.Any() || Model.LeaderRequests.Any())
+{
+    <h3>Requests awaiting approval</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Request ID</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Requester</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.LoggedUser == Model.AdminId)
+            {
+                @foreach (var request in Model.AdminRequests)
+                {
+                    <tr>
+                        <td>@request.Id</td>
+                        <td>@request.StartDate.ToShortDateString()</td>
+                        <td>@request.EndDate.ToShortDateString()</td>
+                        <td>@request.Requester.UserName</td>
+                        <td>@request.Type</td>
+                        <td>@(request.IsApproved ? "Approved" : "Pending")</td>
+                        <td>
+                            @if (!request.IsApproved)
+                            {
+                                <form asp-action="Approve" asp-controller="Vacation" method="post">
+                                    <input type="hidden" name="requestId" value="@request.Id" />
+                                    <button type="submit">Approve</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            @if (Model.LeaderIds.Contains(Model.LoggedUser))
+            {
+                @foreach (var request in Model.LeaderRequests)
+                {
+                    <tr>
+                        <td>@request.Id</td>
+                        <td>@request.StartDate.ToShortDateString()</td>
+                        <td>@request.EndDate.ToShortDateString()</td>
+                        <td>@request.Requester.UserName</td>
+                        <td>@request.Type</td>
+                        <td>@(request.IsApproved ? "Approved" : "Pending")</td>
+                        <td>
+                            @if (!request.IsApproved)
+                            {
+                                <form asp-action="Approve" asp-controller="Vacation" method="post">
+                                    <input type="hidden" name="requestId" value="@request.Id" />
+                                    <button type="submit">Approve</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No pending vacation requests found.</p>
+}
