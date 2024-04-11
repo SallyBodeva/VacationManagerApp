@@ -9,8 +9,8 @@ namespace VacationManagerApp.ViewModels.Requests
 {
     public class PendingRequestsViewModel
     {
-        public ICollection<VacationRequest>? AdminRequests { get; set; } = new List<VacationRequest>();
-        public ICollection<VacationRequest>? LeaderRequests { get; set; } = new List<VacationRequest>();
+        public ICollection<PendongRequestViewModel>? AdminRequests { get; set; } = new List<PendongRequestViewModel>();
+        public ICollection<PendongRequestViewModel>? LeaderRequests { get; set; } = new List<PendongRequestViewModel>();
 
         public string LoggedUser { get; set; }
 

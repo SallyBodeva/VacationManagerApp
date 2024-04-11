@@ -217,7 +217,8 @@ namespace VacationManagerApp.Data.Migrations
                     IsApproved = table.Column<bool>(type: "bit", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PatientNote = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RequesterId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    RequesterId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AskAdmin = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

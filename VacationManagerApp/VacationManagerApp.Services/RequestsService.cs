@@ -148,15 +148,43 @@ namespace VacationManagerApp.Services
 
             model.LoggedUser = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            model.AdminRequests = new List<VacationRequest>();
-            model.LeaderRequests = new List<VacationRequest>();
+            model.AdminRequests = new List<PendongRequestViewModel>();
+            model.LeaderRequests = new List<PendongRequestViewModel>();
 
             model.AdminRequests = await context.VacationRequests
-                .Where(x => !x.IsApproved &&( x.Requester.Team.Leader == null || x.Requester.Team == null))
+                .Where(x => (!x.IsApproved && (x.Requester.Team.Leader == null || x.Requester.Team == null)) || x.AskAdmin==true)
+                .Select(x=> new PendongRequestViewModel() 
+                {
+                    Id = x.Id,
+                    StartDate= x.StartDate,
+                    EndDate= x.EndDate,
+                    DateOfRequest = x.DateOfRequest,
+                    IsHalfDay= x.IsHalfDay,
+                    IsApproved = x.IsApproved,
+                    Type = x.Type,
+                    PatientNote = x.PatientNote,
+                    RequesterId = x.RequesterId,
+                    Requester = x.Requester
+                }
+                )
                 .ToListAsync();
 
             model.LeaderRequests = await context.VacationRequests
-                .Where(x => !x.IsApproved && x.Requester.Team.LeaderId == model.LoggedUser)
+                .Where(x => (!x.IsApproved && x.Requester.Team.LeaderId == model.LoggedUser) && x.AskAdmin==false)
+                 .Select(x => new PendongRequestViewModel()
+                 {
+                     Id = x.Id,
+                     StartDate = x.StartDate,
+                     EndDate = x.EndDate,
+                     DateOfRequest = x.DateOfRequest,
+                     IsHalfDay = x.IsHalfDay,
+                     IsApproved = x.IsApproved,
+                     Type = x.Type,
+                     PatientNote = x.PatientNote,
+                     RequesterId = x.RequesterId,
+                     Requester = x.Requester
+                 }
+                )
                 .ToListAsync();
 
             return model;
@@ -168,6 +196,7 @@ namespace VacationManagerApp.Services
             if (request!=null)
             {
                 request.IsApproved = true;
+                request.AskAdmin = false;
                 context.Update(request);
             }
             return await context.SaveChangesAsync();
@@ -179,6 +208,16 @@ namespace VacationManagerApp.Services
             {
                 context.Remove(request);
                
+            }
+            return await context.SaveChangesAsync();
+        }
+        public async Task<int?> AskAdmin(string id)
+        {
+            VacationRequest request = await context.VacationRequests.FindAsync(id);
+            if (request != null)
+            {
+                request.AskAdmin = true;
+                context.Update(request);
             }
             return await context.SaveChangesAsync();
         }

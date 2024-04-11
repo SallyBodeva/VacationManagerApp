@@ -12,7 +12,7 @@ using VacationManagerApp.Data;
 namespace VacationManagerApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240409074229_Initial")]
+    [Migration("20240411222309_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -297,6 +297,9 @@ namespace VacationManagerApp.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("AskAdmin")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("DateOfRequest")
                         .HasColumnType("datetime2");

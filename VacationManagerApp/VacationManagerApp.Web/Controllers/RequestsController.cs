@@ -93,7 +93,7 @@ namespace VacationManagerApp.Web.Controllers
                 return NotFound();
             }
 
-            var project = await requestService.Approve(id);
+            var request = await requestService.Approve(id);
 
 
             return RedirectToAction(nameof(Pending));
@@ -105,7 +105,18 @@ namespace VacationManagerApp.Web.Controllers
                 return NotFound();
             }
 
-            var project = await requestService.DeleteRequest(id);
+            var request = await requestService.DeleteRequest(id);
+
+            return RedirectToAction(nameof(Pending));
+        }
+        public async Task<IActionResult> AskAdmin(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var request = await requestService.AskAdmin(id);
 
             return RedirectToAction(nameof(Pending));
         }

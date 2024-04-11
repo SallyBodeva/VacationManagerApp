@@ -13,7 +13,6 @@
                 <th>To</th>
                 <th>Requester</th>
                 <th>Type</th>
-                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -28,7 +27,6 @@
                         <td>@request.EndDate.ToShortDateString()</td>
                         <td>@request.Requester.UserName</td>
                         <td>@request.Type</td>
-                        <td>@(request.IsApproved ? "Approved" : "Pending")</td>
                         <td>
                             @if (!request.IsApproved)
                             {
@@ -49,11 +47,11 @@
                         <td>@request.EndDate.ToShortDateString()</td>
                         <td>@request.Requester.UserName</td>
                         <td>@request.Type</td>
-                        <td>@(request.IsApproved ? "Approved" : "Pending")</td>
                         <td>
                             @if (!request.IsApproved)
                             {
                                 <a asp-action="Approve" asp-route-id="@request.Id" asp-method="post" class="btn btn-sm btn-secondary">Approve</a>
+                                <a asp-action="AskAdmin" asp-route-id="@request.Id" asp-method="post" class="btn btn-sm btn-secondary">Transfer to CEO</a>
                                 <a asp-action="DeleteRequest" asp-route-id="@request.Id" asp-method="post" class="btn btn-sm btn-danger">Delete</a>
                             }
                         </td>
