@@ -32,10 +32,8 @@
                         <td>
                             @if (!request.IsApproved)
                             {
-                                <form asp-action="Approve" asp-controller="Vacation" method="post">
-                                    <input type="hidden" name="requestId" value="@request.Id" />
-                                    <button type="submit">Approve</button>
-                                </form>
+                                <a asp-action="Approve" asp-route-id="@request.Id" asp-method="post" class="btn btn-sm btn-secondary">Approve</a>
+                                <a asp-action="DeleteRequest" asp-route-id="@request.Id" asp-method="post" class="btn btn-sm btn-danger">Delete</a>
                             }
                         </td>
                     </tr>
@@ -55,10 +53,8 @@
                         <td>
                             @if (!request.IsApproved)
                             {
-                                <form asp-action="Approve" asp-controller="Vacation" method="post">
-                                    <input type="hidden" name="requestId" value="@request.Id" />
-                                    <button type="submit">Approve</button>
-                                </form>
+                                <a asp-action="Approve" asp-route-id="@request.Id" asp-method="post" class="btn btn-sm btn-secondary">Approve</a>
+                                <a asp-action="DeleteRequest" asp-route-id="@request.Id" asp-method="post" class="btn btn-sm btn-danger">Delete</a>
                             }
                         </td>
                     </tr>

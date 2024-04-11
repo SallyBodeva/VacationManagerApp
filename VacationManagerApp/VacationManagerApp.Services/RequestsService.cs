@@ -162,5 +162,25 @@ namespace VacationManagerApp.Services
             return model;
 
         }
+        public async Task<int?> Approve(string id)
+        {
+            VacationRequest request = await context.VacationRequests.FindAsync(id);
+            if (request!=null)
+            {
+                request.IsApproved = true;
+                context.Update(request);
+            }
+            return await context.SaveChangesAsync();
+        }
+        public async Task<int?> DeleteRequest(string id)
+        {
+            VacationRequest request = await context.VacationRequests.FindAsync(id);
+            if (request != null)
+            {
+                context.Remove(request);
+               
+            }
+            return await context.SaveChangesAsync();
+        }
     }
 }

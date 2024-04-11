@@ -85,5 +85,29 @@ namespace VacationManagerApp.Web.Controllers
             return View(model);
         }
 
+
+        public async Task<IActionResult> Approve(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var project = await requestService.Approve(id);
+
+
+            return RedirectToAction(nameof(Pending));
+        }
+        public async Task<IActionResult> DeleteRequest(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var project = await requestService.DeleteRequest(id);
+
+            return RedirectToAction(nameof(Pending));
+        }
     }
 }
