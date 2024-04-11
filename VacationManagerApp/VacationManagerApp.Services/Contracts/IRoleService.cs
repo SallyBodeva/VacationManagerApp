@@ -12,5 +12,7 @@ namespace VacationManagerApp.Services.Contracts
         public Task<IndexRolesViewModel> GetRolesAsync(IndexRolesViewModel model);
         public Task<int> GetRolesCountAsync();
         public Task<int> CreateRole(CreateRoleViewModel model);
+
+        public Task<RolesMembersViewModel> Members(string id);
     }
 }

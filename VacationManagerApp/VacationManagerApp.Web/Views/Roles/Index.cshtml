@@ -33,8 +33,7 @@
                 @if (User.IsInRole(GlobalConstants.AdminRole))
                 {
                     <td>
-
-                        <a asp-action="GetMembers" asp-action="GetMembers" asp-route-id="@role.Id" class="btn btn-sm btn-secondary">Members</a>
+                        <a asp-action="Members" asp-action="Members" asp-route-id="@role.Id" class="btn btn-sm btn-secondary">Members</a>
                     </td>
                 }
             </tr>

@@ -37,5 +37,22 @@ namespace VacationManagerApp.Web.Controllers
             }
             return View(model);
         }
+
+        public async Task<IActionResult> Members(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var model = await roleService.Members(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            return View(model);
+        }
+
     }
 }

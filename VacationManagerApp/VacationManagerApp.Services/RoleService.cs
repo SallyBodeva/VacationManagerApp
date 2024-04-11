@@ -15,7 +15,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace VacationManagerApp.Services
 {
-    public class RoleService :IRoleService
+    public class RoleService : IRoleService
     {
         private readonly ApplicationDbContext context;
         private readonly UserManager<User> userManager;
@@ -49,6 +49,7 @@ namespace VacationManagerApp.Services
                 var membersCount = (await userManager.GetUsersInRoleAsync(role.Name)).Count();
                 var roleViewModel = new IndexRoleViewModel
                 {
+                    Id = role.Id,
                     Name = role.Name,
                     MembersCount = membersCount
                 };
@@ -62,13 +63,25 @@ namespace VacationManagerApp.Services
 
         public async Task<int> GetRolesCountAsync()
         {
-           return  roleManager.Roles.Count();
+            return roleManager.Roles.Count();
         }
 
         public async Task<int> CreateRole(CreateRoleViewModel model)
         {
             await roleManager.CreateAsync(new IdentityRole(model.NewRoleName));
             return await context.SaveChangesAsync();
+        }
+        public async Task<RolesMembersViewModel> Members(string id)
+        {
+            RolesMembersViewModel model = new RolesMembersViewModel();
+
+            if (await roleManager.RoleExistsAsync(id))
+            {
+                var role = await roleManager.FindByIdAsync(id);
+                model.RoleName = role.Name;
+                model.Members = new List<User>(await userManager.GetUsersInRoleAsync(role.Name));
+            }
+            return model;
         }
     }
 }
