@@ -10,10 +10,10 @@ namespace VacationManagerApp.ViewModels.Projects
 {
     public class IndexProjectsViewModel : PagingViewModel
     {
-        public IndexProjectsViewModel(int elementsCount, int itemsPerPage = 5, string action = "Index") : base(elementsCount, itemsPerPage, action)
+        public IndexProjectsViewModel() : base(0)
         {
         }
-        public IndexProjectsViewModel() : base(0)
+        public IndexProjectsViewModel(int elementsCount, int itemsPerPage = 5, string action = "Index") : base(elementsCount, itemsPerPage, action)
         {
         }
         public ICollection<IndexProjectViewModel> Projects { get; set; } = new List<IndexProjectViewModel>();
