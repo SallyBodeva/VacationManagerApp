@@ -5,7 +5,7 @@ To get started with the app, just follow these steps:
 
 1.Open the solution.
 
-2.Go to RentACar.Web.
+2.Go to VacationManagerApp.Web.
 
 3.Open appsettings.json.
 
