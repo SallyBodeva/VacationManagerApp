@@ -102,6 +102,11 @@ namespace VacationManagerApp.Services
 
         // get user details
 
+
+        //
+        //
+        //Index view
+
         public async Task<DetailsUserViewModel?> GetUserDetailsAsync(string id)
         {
             DetailsUserViewModel? result = null;
