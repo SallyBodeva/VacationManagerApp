@@ -80,6 +80,9 @@ namespace VacationManagerApp.Services
             }
             return user.Id;
         }
+        //Creting  user
+
+        //Deleting user
 
         public async Task<bool> DeleteUserAsync(string id)
         {
