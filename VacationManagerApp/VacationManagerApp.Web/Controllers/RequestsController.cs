@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using VacationManagerApp.Common;
 using VacationManagerApp.Data;
 using VacationManagerApp.Data.Models;
 using VacationManagerApp.Services;
@@ -79,6 +80,7 @@ namespace VacationManagerApp.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
+        [Authorize(Roles = GlobalConstants.AdminRole + "," + GlobalConstants.TeamLeader)]
         public async Task<IActionResult> Pending(PendingRequestsViewModel model)
         {
             model = await requestService.GetPendingRequestsAsync(model);

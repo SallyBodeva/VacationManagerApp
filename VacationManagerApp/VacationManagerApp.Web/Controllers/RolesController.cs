@@ -7,6 +7,7 @@ using VacationManagerApp.Data.Models;
 using VacationManagerApp.ViewModels;
 using VacationManagerApp.Data;
 using VacationManagerApp.ViewModels.Roles;
+using VacationManagerApp.Common;
 
 namespace VacationManager.Controllers
 {
@@ -21,6 +22,7 @@ namespace VacationManager.Controllers
             _db = db;
             _roleManager = roleManager;
         }
+        [Authorize(Roles = GlobalConstants.AdminRole)]
         public async Task<IActionResult> Index()
         {
             List<IdentityRole> roles = _roleManager.Roles.ToList();

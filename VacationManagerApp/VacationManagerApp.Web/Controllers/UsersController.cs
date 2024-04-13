@@ -17,7 +17,7 @@ namespace VacationManager.Web.Controllers
         {
             this.service = service;
         }
-
+        [Authorize(Roles = GlobalConstants.AdminRole)]
         public async Task<IActionResult> Index(IndexUsersViewModel? model)
         {
 
