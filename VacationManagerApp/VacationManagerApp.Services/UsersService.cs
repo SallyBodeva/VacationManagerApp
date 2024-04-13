@@ -93,6 +93,21 @@ namespace VacationManagerApp.Services
             return false;
         }
 
+        // 
+        //Creting  user
+
+        //Deleting user
+
+
+
+        //get user id
+
+        // get user details
+
+
+        //
+        //
+        //Index view
 
 
 
