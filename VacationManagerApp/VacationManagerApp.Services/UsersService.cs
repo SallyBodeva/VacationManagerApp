@@ -188,6 +188,22 @@ namespace VacationManagerApp.Services
 
         }
 
+        // 
+        //Creting  user
+
+        //Deleting user
+
+
+
+        //get user id
+
+        // get user details
+
+
+        //
+        //
+        //Index view
+
         public async Task<EditUserViewModel?> GetUserToEditAsync(string id)
         {
             EditUserViewModel? result = null;
