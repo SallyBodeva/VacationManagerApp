@@ -84,6 +84,12 @@ namespace VacationManagerApp.Services
 
         //Deleting user
 
+
+
+        //get user id
+
+        // get user details
+
         public async Task<bool> DeleteUserAsync(string id)
         {
             User? user = await GetUserByIdAsync(id);
