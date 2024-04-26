@@ -93,24 +93,6 @@ namespace VacationManagerApp.Services
             return false;
         }
 
-        // 
-        //Creting  user
-
-        //Deleting user
-
-
-
-        //get user id
-
-        // get user details
-
-
-        //
-        //
-        //Index view
-
-
-
         public async Task<DetailsUserViewModel?> GetUserDetailsAsync(string id)
         {
             DetailsUserViewModel? result = null;
